@@ -1,0 +1,23 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "hero-supply-chain",
+      "description": "Global supply chain network visualization",
+      "imageUrl": "https://picsum.photos/seed/synchro1/1200/600",
+      "imageHint": "supply chain"
+    },
+    {
+      "id": "warehouse-automation",
+      "description": "Modern automated warehouse",
+      "imageUrl": "https://picsum.photos/seed/synchro2/800/600",
+      "imageHint": "warehouse robotics"
+    },
+    {
+      "id": "logistics-map",
+      "description": "Digital map with logistics routes",
+      "imageUrl": "https://picsum.photos/seed/synchro3/800/600",
+      "imageHint": "logistics map"
+    }
+  ]
+}
