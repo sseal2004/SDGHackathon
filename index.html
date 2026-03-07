@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Supply Chain AI Platform</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f9;
+text-align:center;
+}
+
+.container{
+width:700px;
+margin:auto;
+background:white;
+padding:25px;
+margin-top:40px;
+border-radius:10px;
+box-shadow:0px 0px 10px gray;
+}
+
+input,select{
+width:90%;
+padding:10px;
+margin:8px;
+}
+
+button{
+padding:12px 20px;
+background:#007bff;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+button:hover{
+background:#0056b3;
+}
+
+.result{
+margin-top:15px;
+font-size:18px;
+font-weight:bold;
+color:green;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Supply Chain AI Platform</h2>
+
+<hr>
+
+<h3>Demand Prediction</h3>
+
+<input id="qty" type="number" placeholder="Order Item Quantity">
+
+<input id="profit" type="number" placeholder="Order Profit Per Order">
+
+<input id="discount" type="number" placeholder="Order Item Discount">
+
+<br>
+
+<button onclick="predictDemand()">Predict Demand</button>
+
+<div class="result" id="demandResult"></div>
+
+<hr>
+
+<h3>Delay Prediction</h3>
+
+<input id="d_qty" type="number" placeholder="Order Item Quantity">
+
+<input id="d_discount" type="number" placeholder="Order Item Discount">
+
+<input id="price" type="number" placeholder="Order Item Product Price">
+
+<input id="sales" type="number" placeholder="Sales">
+
+<input id="benefit" type="number" placeholder="Benefit per order">
+
+<select id="shipping">
+<option>Standard Class</option>
+<option>Second Class</option>
+<option>First Class</option>
+<option>Same Day</option>
+</select>
+
+<input id="market" placeholder="Market (Africa, Europe, Asia etc)">
+
+<input id="segment" placeholder="Customer Segment">
+
+<input id="region" placeholder="Order Region">
+
+<input id="country" placeholder="Order Country">
+
+<input id="category" type="number" placeholder="Product Category Id">
+
+<br>
+
+<button onclick="predictDelay()">Predict Delay</button>
+
+<div class="result" id="delayResult"></div>
+
+</div>
+
+<script>
+
+function predictDemand(){
+
+const data = {
+
+"Order Item Quantity": Number(document.getElementById("qty").value),
+
+"Order Profit Per Order": Number(document.getElementById("profit").value),
+
+"Order Item Discount": Number(document.getElementById("discount").value)
+
+}
+
+fetch("http://127.0.0.1:5000/predict-demand",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify(data)
+
+})
+.then(res=>res.json())
+.then(data=>{
+
+document.getElementById("demandResult").innerHTML =
+"Predicted Demand: " + data.predicted_demand
+
+})
+
+}
+
+
+
+function predictDelay(){
+
+const data = {
+
+"Order Item Quantity": Number(document.getElementById("d_qty").value),
+
+"Order Item Discount": Number(document.getElementById("d_discount").value),
+
+"Order Item Product Price": Number(document.getElementById("price").value),
+
+"Sales": Number(document.getElementById("sales").value),
+
+"Benefit per order": Number(document.getElementById("benefit").value),
+
+"Shipping Mode": document.getElementById("shipping").value,
+
+"Market": document.getElementById("market").value,
+
+"Customer Segment": document.getElementById("segment").value,
+
+"Order Region": document.getElementById("region").value,
+
+"Order Country": document.getElementById("country").value,
+
+"Product Category Id": Number(document.getElementById("category").value)
+
+}
+
+fetch("http://127.0.0.1:5000/predict-delay",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify(data)
+
+})
+.then(res=>res.json())
+.then(data=>{
+
+document.getElementById("delayResult").innerHTML =
+"Delay Prediction: " + data.delay_prediction
+
+})
+
+}
+
+</script>
+
+</body>
+</html>
