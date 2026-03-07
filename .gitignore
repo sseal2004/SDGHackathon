@@ -1,0 +1,5 @@
+backend/models/*.pkl
+backend/data/*.csv
+__pycache__/
+*.pyc
+venv/
